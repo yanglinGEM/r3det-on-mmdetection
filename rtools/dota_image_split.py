@@ -13,8 +13,8 @@ class DOTAImageSplitTool(object):
                  tile_shape,
                  num_process=8,
                  ):
-        self.in_images_dir = osp.join(in_root, 'images/')
-        self.in_labels_dir = osp.join(in_root, 'labelTxt/')
+        self.in_images_dir = osp.join(in_root, 'images/images/')
+        self.in_labels_dir = osp.join(in_root, 'labelTxt-v1.0/')
         self.out_images_dir = osp.join(out_root, 'images/')
         self.out_labels_dir = osp.join(out_root, 'labelTxt/')
         assert isinstance(tile_shape, tuple), f'argument "tile_shape" must be tuple but got {type(tile_shape)} instead!'
@@ -94,13 +94,13 @@ class DOTAImageSplitTool(object):
 
 
 if __name__ == '__main__':
-    trainsplit = DOTAImageSplitTool('/data/dota/train',
-                                    '/data/dota/trainsplit',
+    trainsplit = DOTAImageSplitTool('/home/YangLin/pycharm_project/r3det-on-mmdetection/data/dataset/DOTA/train',
+                                    '/home/YangLin/pycharm_project/r3det-on-mmdetection/data/dataset/DOTA/trainsplit',
                                     tile_overlap=(150, 150),
                                     tile_shape=(600, 600))
     trainsplit.split()
-    valsplit = DOTAImageSplitTool('/data/dota/val',
-                                  '/data/dota/valsplit',
+    valsplit = DOTAImageSplitTool('/home/YangLin/pycharm_project/r3det-on-mmdetection/data/dataset/DOTA/val',
+                                  '/home/YangLin/pycharm_project/r3det-on-mmdetection/data/dataset/DOTA/valsplit',
                                   tile_overlap=(150, 150),
                                   tile_shape=(600, 600))
     valsplit.split()

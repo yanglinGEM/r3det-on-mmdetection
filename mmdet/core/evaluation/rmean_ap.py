@@ -204,12 +204,23 @@ def reval_map(det_results,
         cls_dets, cls_gts, cls_gts_ignore = rget_cls_results(
             det_results, annotations, i)
 
-        tpfp = pool.starmap(
-            rtpfp_default,
-            zip(cls_dets, cls_gts, cls_gts_ignore,
-                [iou_thr for _ in range(num_imgs)],
-                [area_ranges for _ in range(num_imgs)]))
-        tp, fp = tuple(zip(*tpfp))
+        # tpfp = pool.starmap(
+        #     rtpfp_default,
+        #     zip(cls_dets, cls_gts, cls_gts_ignore,
+        #         [iou_thr for _ in range(num_imgs)],
+        #         [area_ranges for _ in range(num_imgs)]))
+        # tp, fp = tuple(zip(*tpfp))
+        mytp = []         
+        myfp = []         
+        for cdt, cgt, cgti, iout, arear in zip(cls_dets, cls_gts, cls_gts_ignore,
+                                                [iou_thr for _ in range(num_imgs)],
+                                                [area_ranges for _ in range(num_imgs)]):             
+            tp, fp = rtpfp_default(cdt, cgt, cgti, iout, arear)             
+            mytp.append(tp)             
+            myfp.append(fp)         
+        mytp = tuple(mytp)         
+        myfp = tuple(myfp)         
+        tp, fp = mytp, myfp 
         # calculate gt number of each scale
         # ignored gts or gts beyond the specific scale are not counted
         num_gts = np.zeros(num_scales, dtype=int)

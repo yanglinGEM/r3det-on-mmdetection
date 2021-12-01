@@ -1,14 +1,14 @@
 # dataset settings
 dataset_type = 'DOTADatasetV1'
 # dataset root path:
-data_root = '/data/dota/'
+data_root = '/home/YangLin/pycharm_project/r3det-on-mmdetection/data/dataset/DOTA/'
 trainsplit_ann_folder = 'trainsplit/labelTxt'
 trainsplit_img_folder = 'trainsplit/images'
 valsplit_ann_folder = 'valsplit/labelTxt'
 valsplit_img_folder = 'valsplit/images'
-val_ann_folder = 'val/labelTxt'
-val_img_folder = 'val/images'
-test_img_folder = 'test/images'
+val_ann_folder = 'val/labelTxt-v1.0'
+val_img_folder = 'val/images/images'
+test_img_folder = 'test/images/images'
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
