@@ -1,9 +1,9 @@
 # model settings
 model = dict(
     type='R3Det',
-    pretrained='torchvision://resnet50',
+    pretrained='pretrain/re_resnet50_c8_batch256-25b16846.pth',
     backbone=dict(
-        type='ResNet',
+        type='ReResNet',
         depth=50,
         num_stages=4,
         out_indices=(0, 1, 2, 3),
@@ -12,7 +12,7 @@ model = dict(
         norm_eval=True,
         style='pytorch'),
     neck=dict(
-        type='FPN',
+        type='ReFPN',
         in_channels=[256, 512, 1024, 2048],
         out_channels=256,
         start_level=1,
@@ -43,9 +43,9 @@ model = dict(
             alpha=0.25,
             loss_weight=1.0),
         loss_bbox=dict(
-            type='GDLoss',
-            loss_type='gwd',
-            loss_weight=0.1)),
+            type='SmoothL1Loss',
+            beta=0.11,
+            loss_weight=1.0)),
     frm_cfgs=[
         dict(
             in_channels=256,
@@ -76,9 +76,9 @@ model = dict(
                 alpha=0.25,
                 loss_weight=1.0),
             loss_bbox=dict(
-                type='GDLoss',
-                loss_type='gwd',
-                loss_weight=0.1)),
+                type='SmoothL1Loss',
+                beta=0.11,
+                loss_weight=1.0)),
         dict(
             type='RRetinaRefineHead',
             num_classes=15,
@@ -99,9 +99,9 @@ model = dict(
                 alpha=0.25,
                 loss_weight=1.0),
             loss_bbox=dict(
-                type='GDLoss',
-                loss_type='gwd',
-                loss_weight=0.1)),
+                type='SmoothL1Loss',
+                beta=0.11,
+                loss_weight=1.0)),
     ]
 )
 # training and testing settings
